@@ -1,6 +1,6 @@
 Spree::Core::Engine.add_routes do
   devise_for :spree_user,
-             class_name: Spree::User,
+             class_name: Spree.class_user,
              only: [:omniauth_callbacks],
              controllers: { omniauth_callbacks: 'spree/omniauth_callbacks' },
              path: Spree::SocialConfig[:path_prefix]
