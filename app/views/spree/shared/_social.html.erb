@@ -4,8 +4,12 @@
   <% end %>
 
   <% Spree::AuthenticationMethod.available_for(@spree_user).each do |method| %>
-    <%= link_to(content_tag(:i, '', class: "icon-spree-#{method.provider.to_url}-circled"),
-          spree.spree_user_omniauth_authorize_url(provider: method.provider),
-          title: Spree.t(:sign_in_with, provider: method.provider)) if method.active %>
+
+    <!-- these lines were added to fix this issue: github.com/spree-contrib/spree_social/issues/107 -->
+    <% url = spree.spree_user_omniauth_authorize_path(provider: method.provider) %>
+    <% url.slice!(spree.root_path) %>
+    <% url = "/" + url %>
+
+    <%= link_to(content_tag(:i, '', class: "icon-spree-#{method.provider.to_url}-circled"), url, title: Spree.t(:sign_in_with, provider: method.provider)) if method.active %>
   <% end %>
 </div>
