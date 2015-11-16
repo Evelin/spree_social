@@ -1,5 +1,5 @@
 Spree.user_class.class_eval do
-  has_many :user_authentications, dependent: :destroy
+  has_many :user_authentications, dependent: :destroy, class: Spree::UserAuthentication
 
   devise :omniauthable
 
